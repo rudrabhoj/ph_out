@@ -33,7 +33,11 @@ class PhGame {
 
     console.log('adding scene!!');
 
+    console.log('scenes before ', this._game.scene.getScenes());
+
     this._game.scene.add(this._sceneKey, this._scene);
+
+    console.log('scenes aftere ', this._game.scene.getScenes())
   }
 
   public clearScreen() {

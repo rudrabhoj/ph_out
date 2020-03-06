@@ -55,8 +55,8 @@ module.exports = (grunt) => {
     watch: {
       js: {
         files: ['src/**/*.ts'],
-        tasks: ['browserify', 'exorcise', 'uglify'],
-        //tasks: ['browserify', 'exorcise'],
+        //tasks: ['browserify', 'exorcise', 'uglify'],
+        tasks: ['browserify', 'exorcise'],
       }
     },
     /*
@@ -83,7 +83,7 @@ module.exports = (grunt) => {
 
 
 
-  grunt.registerTask('default', ['connect', 'browserify', 'exorcise', 'uglify', 'watch']);
-  //grunt.registerTask('default', ['connect', 'browserify', 'exorcise', 'watch']);
+  //grunt.registerTask('default', ['connect', 'browserify', 'exorcise', 'uglify', 'watch']);
+  grunt.registerTask('default', ['connect', 'browserify', 'exorcise', 'watch']);
 }
 

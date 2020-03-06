@@ -1,11 +1,7 @@
-import * as phaser from 'phaser';
-
 import ControlContainer from './Dep/ControlContainer'
-import World from './Game/Core/Engine/World';
+import Game from './Game/Core/Game';
 
 let control = new ControlContainer();
-let world: World = control.getMain();
+let game: Game = control.getMain();
 
-(<any>window).world = world;
-
-world.init(500, 500);
+game.startGame();

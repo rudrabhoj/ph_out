@@ -5,21 +5,24 @@ import ObjectMaker from './ObjectMaker';
 class DepResolver {
   private _modList:Dep[];
   private _objectMaker:ObjectMaker;
+  private _singletonData: any;
 
   constructor(modList:Dep[]) {
     this._modList = modList;
     this._objectMaker = new ObjectMaker();
+
+    this._singletonData = {};
   }
 
   set modList(mlist:Dep[]) {
     this._modList = mlist;
   }
 
-  public resolve(rootName:Symbol):any {
+  //any should be symbol but TS doesn't allow to use that in _singletonData indexing
+  public resolve(rootName: Symbol): any {
     let root = this._createNode(rootName);
 
     this._resolveTree(root);
-
     return root.data;
   }
 
@@ -76,10 +79,27 @@ class DepResolver {
 
   private _allocateTree(tree:DepNode) {
     if(this._treeIsAllocated(tree)) return;
+
+    
     
     let type = this._treeGetType(tree);
     let instances = this._treeGetInstances(tree);
-    let instance = this._createInstance(type, instances);
+    let dep = <Dep> this._getDep(tree.name);
+
+    let instance = null;
+    let anyName: any = <any> dep.name; //TS do not allow Symbol to be index
+
+    if (dep.singleton) {
+      if (this._singletonData[anyName] != null) {
+        instance = this._singletonData[anyName];
+      } else {
+        instance = this._createInstance(type, instances);
+        this._singletonData[anyName] = instance;
+      }
+    } else {
+      instance = this._createInstance(type, instances);
+    }
+
 
     this._treeSetData(tree, instance);
   }  

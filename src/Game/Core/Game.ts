@@ -11,7 +11,11 @@ class Game {
 
   public startGame() {
     this._world.init(500, 500);
-    this._world.startLevel(this._mainLevel);
+
+    window.setTimeout(() => {
+      this._world.startLevel(this._mainLevel);
+    }, 2500)
+    
   }
 }
 

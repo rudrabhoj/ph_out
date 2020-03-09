@@ -1,6 +1,7 @@
 import {Game, GameObjects, Scene} from 'phaser';
 
 import PhFactory from './PhFactory';
+import PhScene from './PhScene';
 
 class PhGame {
   private _phFactory: PhFactory;
@@ -19,25 +20,17 @@ class PhGame {
   }
 
   get scene(): Scene {
-    if (this._scene == null || this._game == null) {
-      console.error("Game not initialized, can't give scene!");
-    }
+    let scn = null;
 
-    return <Scene> this._scene;
+    if ( this._game != null ) scn = this._game.scene.getScenes()[0];
+
+    return <Scene> scn;
   }
 
   public init(w: number, h: number, container: string): void {
-    this._scene = this._phFactory.createScene({key: this._sceneKey, active: true});
+    this._scene = new PhScene();
 
     this._game = this._createGame(w, h, container);
-
-    console.log('adding scene!!');
-
-    console.log('scenes before ', this._game.scene.getScenes());
-
-    this._game.scene.add(this._sceneKey, this._scene);
-
-    console.log('scenes aftere ', this._game.scene.getScenes())
   }
 
   public clearScreen() {

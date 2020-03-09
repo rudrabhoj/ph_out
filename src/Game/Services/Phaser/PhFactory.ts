@@ -1,4 +1,5 @@
 import {Game, GameObjects, Scene} from 'phaser';
+import PhScene from './PhScene';
 
 class PhFactory {
   constructor() {
@@ -6,6 +7,7 @@ class PhFactory {
   }
 
   createGame(width: number, height: number, container: string, renderer: string = "null"): Game {
+    console.log('creating new game!');
     let rnd: any;
 
     if (renderer == 'canvas') {
@@ -20,7 +22,13 @@ class PhFactory {
       type: rnd,
       parent: container,
       width: width,
-      height: height
+      height: height,
+      scene: {
+        create: () => {
+          //console.log(this);
+          //(<any> window).gameclass = game;
+        }
+      }
     });
 
     return game;

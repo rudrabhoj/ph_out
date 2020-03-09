@@ -35,6 +35,8 @@ class Entity {
     this._x = x;
     this._y = y;
 
+    console.log("making rect at %s %s", x, y);
+
     this._data = this._screen.createReact(x, y, 100, 100);
   }
 

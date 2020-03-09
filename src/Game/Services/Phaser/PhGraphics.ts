@@ -14,6 +14,8 @@ class PhGraphics {
     let alpha = 1;
 
     let gfx = this._phFactory.createGraphics(scene);
+    scene.add.existing(gfx);
+
     gfx.lineStyle(thickness, color, alpha);
     gfx.strokeRect(x, y, width, height);
 
